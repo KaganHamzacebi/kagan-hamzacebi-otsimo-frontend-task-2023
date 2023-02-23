@@ -3,8 +3,15 @@ import { useEffect, useState } from 'react';
 import { getMenus } from '../api/menu';
 import styles from '../styles/modules/Menu.module.scss';
 
+// Icons
+import { FaDollarSign } from 'react-icons/fa';
+import { GoPrimitiveDot } from 'react-icons/go';
+
+// Types
+import type { Meal } from '../utils/types';
+
 function Menu() {
-  const [menu, setMenu] = useState<Array<any>>([]);
+  const [menu, setMenu] = useState<Array<Meal>>([]);
 
   useEffect(() => {
     getMenus()
@@ -13,7 +20,7 @@ function Menu() {
         console.log(menu);
       })
       .catch((err) => console.log(err));
-  });
+  }, [menu]);
 
   return (
     <>
@@ -39,7 +46,7 @@ function Menu() {
           <div className={styles.divider}/>
           <div className={styles.sort}>
             <span>Sort By</span>
-            <select placeholder="Order by">
+            <select className={styles.orderInput} placeholder="Order by">
               <option>Name - Increasing</option>
               <option>Name - Decreasing</option>
               <option>Minimum Possible Price</option>
@@ -50,15 +57,49 @@ function Menu() {
           </div>
         </section>
         <section className={styles.menuSection}>
-          {
-            menu.map((meal) => {
-              return (
-                <div>
-                  123
-                </div>
-              );
-            })
-          }
+          <div className={styles.menuWrapper}>
+            {
+              menu.map((meal: Meal) => {
+                return (
+                  <div className={styles.menuItem} key={meal.id}>
+                    <span className={styles.itemName}>{meal.name}</span>
+                    <div className={styles.ingredientsWrapper}>
+                      {
+                        meal.ingredients.map((ingredient) => {
+                          return (
+                            <div className={styles.ingredientInfo}>
+                              <GoPrimitiveDot className={styles.ingredientDecoration}/>
+                              <span>{ingredient.name}</span>
+                              <span>({ingredient.quantity}</span>
+                              <span>{ingredient.quantity_type})</span>
+                            </div>
+                          );
+                        })
+                      }
+                    </div>
+                    <div className={styles.ingredientPrice}>
+                      {
+                        meal.priceScale === 1 ?
+                          <FaDollarSign className={styles.dollarSign}/>
+                          :
+                          meal.priceScale === 2 ?
+                            <div className={styles.priceScale}>
+                              <FaDollarSign className={styles.dollarSign}/>
+                              <FaDollarSign className={styles.dollarSign}/>
+                            </div>
+                            :
+                            <div className={styles.priceScale}>
+                              <FaDollarSign className={styles.dollarSign}/>
+                              <FaDollarSign className={styles.dollarSign}/>
+                              <FaDollarSign className={styles.dollarSign}/>
+                            </div>
+                      }
+                    </div>
+                  </div>
+                );
+              })
+            }
+          </div>
         </section>
       </main>
     </>
