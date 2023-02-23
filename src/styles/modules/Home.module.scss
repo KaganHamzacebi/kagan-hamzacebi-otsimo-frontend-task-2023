@@ -1,0 +1,124 @@
+.main {
+  margin-top: var(--header-height);
+  background-color: var(--main-color-primary);
+  padding: 2rem 20rem;
+}
+
+.welcomeSection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 4rem;
+}
+
+.welcomeWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 2rem;
+}
+
+.information {
+  width: 100%;
+  background-color: var(--main-color-secondary);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 1rem;
+
+  & > .brandLogo {
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--border-radius);
+  }
+
+  & > span {
+    color: var(--text-color-primary);
+
+    & > ul {
+      display: flex;
+      flex-direction: column;
+      margin-top: 0.5rem;
+      margin-left: 2rem;
+
+      & > li {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        column-gap: 0.25rem;
+
+        & > .listItemIcon {
+          color: var(--main-color-yellow);
+        }
+      }
+
+    }
+  }
+}
+
+.welcomeMessage {
+  color: var(--text-color-secondary);
+  text-align: center;
+}
+
+.cardContainer {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  & > .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1rem;
+    padding: 2rem;
+    background-color: var(--main-color-secondary);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    border-radius: var(--border-radius);
+    transition: all 0.2s linear;
+
+    &:hover {
+      transform: scale(102.5%);
+    }
+
+    & > .cardLogo {
+      color: var(--text-color-primary);
+      width: 6rem;
+      height: 6rem;
+    }
+
+    & > .cardText {
+      color: var(--text-color-primary);
+      font-size: 12px;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+}
+
+.commentSection {
+  margin-top: 6rem;
+}
+
+.commentContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.commentCard {
+  display: flex;
+  border-radius: var(--border-radius);
+  background-color: var(--main-color-secondary);
+  padding: 2rem;
+  color: var(--text-color-primary);
+
+  & > span {
+    display: inline-block;
+    word-wrap: break-word;
+  }
+}

@@ -1,0 +1,16 @@
+@import "typography";
+@import "variables";
+
+/** Resets */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  text-decoration: none;
+  background-color: inherit;
+
+  &:focus {
+    outline: none;
+  }
+}

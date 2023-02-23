@@ -1,0 +1,31 @@
+@import "functions";
+
+@mixin media-sm {
+  @media screen and (min-width: getScreenSize('sm')) {
+    @content;
+  }
+}
+
+@mixin media-md {
+  @media screen and (min-width: getScreenSize('md')) {
+    @content;
+  }
+}
+
+@mixin media-lg {
+  @media screen and (min-width: getScreenSize('lg')) {
+    @content;
+  }
+}
+
+@mixin media-xl {
+  @media screen and (min-width: getScreenSize('xl')) {
+    @content;
+  }
+}
+
+@mixin media-2xl {
+  @media screen and (min-width: getScreenSize('2xl')) {
+    @content;
+  }
+}

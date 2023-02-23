@@ -1,0 +1,20 @@
+:root {
+  // Main Colors
+  --main-color-primary: #f5f1f1;
+  --main-color-secondary: #551A8B;
+  --main-color-yellow: #FFDF00;
+  // Text Colors
+  --text-color-primary: #FFFFFF;
+  --text-color-secondary: #551A8B;
+  // Others
+  --border-radius: 0.5rem;
+  --header-height: 120px;
+}
+
+$screen-size: (
+        'sm': 640px,
+        'md': 768px,
+        'lg': 1024px,
+        'xl': 1280px,
+        '2xl': 1536px,
+);
