@@ -18,6 +18,11 @@ export const getMenus = async () => {
     res.priceScale = avg <= 15 ? 1 : avg <= 20 ? 2 : 3;
 
     menu[i - 1] = res;
+    menu.sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    });
   }
   return menu;
 };

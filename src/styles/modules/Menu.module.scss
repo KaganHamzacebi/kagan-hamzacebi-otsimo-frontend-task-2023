@@ -1,21 +1,38 @@
 @import "src/styles/animations";
+@import 'src/styles/mixins';
 
 .main {
   margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+  max-height: calc(100vh - var(--header-height));
   background-color: var(--main-color-primary);
-  padding: 2rem 4rem 0 20rem;
   display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding: 1rem;
+
+  @include media-lg {
+    padding: 2rem 4rem 2rem 20rem;
+    flex-direction: row;
+  }
 }
 
 .filterSection {
-  position: fixed;
-  left: 2rem;
   border: 1px solid rgba(48, 48, 48, 0.5);
   border-radius: var(--border-radius);
+  justify-content: space-evenly;
   padding: 1rem;
   display: flex;
-  flex-direction: column;
-  row-gap: 1.25rem;
+  flex-direction: row;
+  column-gap: 0.5rem;
+
+  @include media-lg {
+    width: auto;
+    position: fixed;
+    left: 2rem;
+    flex-direction: column;
+    row-gap: 1.25rem;
+  }
 
   & > div {
     display: flex;
@@ -38,6 +55,7 @@
 }
 
 .searchInput, .orderInput {
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid #cccccc;
   border-radius: var(--border-radius);
@@ -83,9 +101,16 @@
     top: -1.75rem;
     background-color: var(--main-color-primary);
     font-weight: 700;
-    font-size: 24px;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 75%;
+
+    @include media-lg {
+      font-size: 24px;
+    }
   }
 }
 
@@ -95,7 +120,14 @@
 
 .ingredientsWrapper {
   display: flex;
-  column-gap: 1.25rem;
+  flex-direction: column;
+  row-gap: 0.5rem;
+
+  @include media-lg {
+    flex-direction: row;
+    column-gap: 1.25rem;
+  }
+
 }
 
 .ingredientInfo {
@@ -105,6 +137,11 @@
 
   & > span {
     color: var(--text-color-primary);
+    font-size: 12px;
+
+    @include media-lg {
+      font-size: 14px;
+    }
   }
 }
 

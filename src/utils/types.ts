@@ -7,8 +7,8 @@ export type Meal = {
   priceScale: 1 | 2 | 3;
 }
 
-type Ingredient = {
-  groups: Array<string>;
+export type Ingredient = {
+  groups: Array<string> | undefined;
   name: string;
   options: Array<Option>;
   quantity: number;
