@@ -1,6 +1,5 @@
 import Header from '../components/Header';
 import { useEffect, useState } from 'react';
-import { getMenus } from '../api/menu';
 import styles from '../styles/modules/Menu.module.scss';
 
 // Icons
@@ -9,18 +8,20 @@ import { GoPrimitiveDot } from 'react-icons/go';
 
 // Types
 import type { Meal } from '../utils/types';
+import { getMenus } from '../api/menu';
 
 function Menu() {
   const [menu, setMenu] = useState<Array<Meal>>([]);
+  const [filteredMenu, setFilteredMenu] = useState<Array<Meal>>([]);
 
   useEffect(() => {
     getMenus()
       .then((res) => {
         setMenu(res);
-        console.log(menu);
+        setFilteredMenu(res);
       })
       .catch((err) => console.log(err));
-  }, [menu]);
+  }, []);
 
   return (
     <>
@@ -35,7 +36,11 @@ function Menu() {
           <div className={styles.category}>
             <span>Category</span>
             <div className={styles.checkboxWrapper}>
-              <input className={styles.searchInput} type="checkbox"/>
+              <input
+                className={styles.searchInput}
+                // implement onChangeHere
+                type="checkbox"
+              />
               <span>Vegetarian</span>
             </div>
             <div className={styles.checkboxWrapper}>
@@ -59,45 +64,67 @@ function Menu() {
         <section className={styles.menuSection}>
           <div className={styles.menuWrapper}>
             {
-              menu.map((meal: Meal) => {
-                return (
-                  <div className={styles.menuItem} key={meal.id}>
-                    <span className={styles.itemName}>{meal.name}</span>
-                    <div className={styles.ingredientsWrapper}>
-                      {
-                        meal.ingredients.map((ingredient) => {
-                          return (
-                            <div className={styles.ingredientInfo}>
-                              <GoPrimitiveDot className={styles.ingredientDecoration}/>
-                              <span>{ingredient.name}</span>
-                              <span>({ingredient.quantity}</span>
-                              <span>{ingredient.quantity_type})</span>
-                            </div>
-                          );
-                        })
-                      }
-                    </div>
-                    <div className={styles.ingredientPrice}>
-                      {
-                        meal.priceScale === 1 ?
-                          <FaDollarSign className={styles.dollarSign}/>
-                          :
-                          meal.priceScale === 2 ?
-                            <div className={styles.priceScale}>
-                              <FaDollarSign className={styles.dollarSign}/>
-                              <FaDollarSign className={styles.dollarSign}/>
-                            </div>
-                            :
-                            <div className={styles.priceScale}>
-                              <FaDollarSign className={styles.dollarSign}/>
-                              <FaDollarSign className={styles.dollarSign}/>
-                              <FaDollarSign className={styles.dollarSign}/>
-                            </div>
-                      }
-                    </div>
+              menu.length === 0 ?
+                <div className={styles.shimmerWrapper}>
+                  <div className={styles.shimmer}>
+                    <div/>
                   </div>
-                );
-              })
+                  <div className={styles.shimmer}>
+                    <div/>
+                  </div>
+                  <div className={styles.shimmer}>
+                    <div/>
+                  </div>
+                  <div className={styles.shimmer}>
+                    <div/>
+                  </div>
+                  <div className={styles.shimmer}>
+                    <div/>
+                  </div>
+                  <div className={styles.shimmer}>
+                    <div/>
+                  </div>
+                </div>
+                :
+                menu.map((meal: Meal) => {
+                  return (
+                    <div className={styles.menuItem} key={meal.id}>
+                      <span className={styles.itemName}>{meal.name}</span>
+                      <div className={styles.ingredientsWrapper}>
+                        {
+                          meal.ingredients.map((ingredient) => {
+                            return (
+                              <div className={styles.ingredientInfo}>
+                                <GoPrimitiveDot className={styles.ingredientDecoration}/>
+                                <span>{ingredient.name}</span>
+                                <span>({ingredient.quantity}</span>
+                                <span>{ingredient.quantity_type})</span>
+                              </div>
+                            );
+                          })
+                        }
+                      </div>
+                      <div className={styles.ingredientPrice}>
+                        {
+                          meal.priceScale === 1 ?
+                            <FaDollarSign className={styles.dollarSign}/>
+                            :
+                            meal.priceScale === 2 ?
+                              <div className={styles.priceScale}>
+                                <FaDollarSign className={styles.dollarSign}/>
+                                <FaDollarSign className={styles.dollarSign}/>
+                              </div>
+                              :
+                              <div className={styles.priceScale}>
+                                <FaDollarSign className={styles.dollarSign}/>
+                                <FaDollarSign className={styles.dollarSign}/>
+                                <FaDollarSign className={styles.dollarSign}/>
+                              </div>
+                        }
+                      </div>
+                    </div>
+                  );
+                })
             }
           </div>
         </section>
