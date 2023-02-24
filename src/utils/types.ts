@@ -15,7 +15,7 @@ export type Ingredient = {
   quantity_type: 'gram' | 'millilitre';
 }
 
-type Option = {
+export type Option = {
   name: string;
   per_amount: 'kilogram' | 'litre';
   price: number;

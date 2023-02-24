@@ -10,11 +10,13 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import type { Meal } from '../utils/types';
 import { getMenus } from '../api/menu';
 import MealModal from '../components/MealModal';
+import { useAppDispatch } from '../app/hooks';
+import { setModalActivity, setModalProps } from '../features/ModalControllerSlice';
 
 function Menu() {
-  const [modalProps, setModalProps] = useState<Meal>();
   const [menu, setMenu] = useState<Array<Meal>>([]);
   const [filteredMenu, setFilteredMenu] = useState<Array<Meal>>([]);
+  const dispatch = useAppDispatch();
 
   function sortBy(id: string) {
     switch (id) {
@@ -61,6 +63,7 @@ function Menu() {
           <div className={styles.search}>
             <span>Search</span>
             <input
+              id={'searchInput'}
               className={styles.searchInput}
               onChange={(e) => {
                 setFilteredMenu(menu.filter((meal) => meal.name.toLowerCase().includes(e.target.value.toLowerCase())));
@@ -74,26 +77,38 @@ function Menu() {
             <div className={styles.checkboxWrapper}>
               <input
                 className={styles.searchInput}
+                name='category'
+                defaultChecked={true}
+                onChange={() => setFilteredMenu(menu)}
+                type="radio"
+              />
+              <span>All</span>
+            </div>
+            <div className={styles.checkboxWrapper}>
+              <input
+                className={styles.searchInput}
+                name='category'
                 onChange={(e) => {
                   if (e.target.checked)
                     setFilteredMenu(menu.filter((meal) => meal.ingredients.every((ingredient) => ingredient.groups?.includes('vegan') || ingredient.groups?.includes('vegetarian'))));
                   else
                     setFilteredMenu(menu);
                 }}
-                type="checkbox"
+                type="radio"
               />
               <span>Vegetarian</span>
             </div>
             <div className={styles.checkboxWrapper}>
               <input
                 className={styles.searchInput}
+                name='category'
                 onChange={(e) => {
                   if (e.target.checked)
                     setFilteredMenu(menu.filter((meal) => meal.ingredients.every((ingredient) => ingredient.groups?.includes('vegan'))));
                   else
                     setFilteredMenu(menu);
                 }}
-                type="checkbox"/>
+                type="radio"/>
               <span>Vegan</span>
             </div>
           </div>
@@ -101,6 +116,7 @@ function Menu() {
           <div className={styles.sort}>
             <span>Sort By</span>
             <select
+              id='orderBySelect'
               className={styles.orderInput}
               onChange={(e) => sortBy(e.target.value)}
               placeholder="Order by"
@@ -139,7 +155,13 @@ function Menu() {
                 :
                 filteredMenu.map((meal: Meal) => {
                   return (
-                    <div className={styles.menuItem} key={meal.id}>
+                    <div
+                      className={styles.menuItem} key={meal.id}
+                      onClick={() => {
+                        dispatch(setModalProps(meal));
+                        dispatch(setModalActivity(true));
+                      }}
+                    >
                       <span className={styles.itemName}>{meal.name}</span>
                       <div className={styles.ingredientsWrapper}>
                         {

@@ -1,0 +1,183 @@
+@import "src/styles/mixins";
+@import "src/styles/animations";
+
+.main {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  transition: opacity 0.2s linear;
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &:not(.active) {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.modal {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto auto;
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &:not(.active) {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.modalHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cross {
+  width: 24px;
+  height: 24px;
+  cursor:pointer;
+  transition: color 0.1s linear;
+
+  &:hover {
+    color: red;
+  }
+}
+
+.modalContent {
+  padding: 1rem 0;
+}
+
+.mealNameWrapper {
+  display: flex;
+  column-gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mealName {
+  font-weight: 600;
+  font-size: 18px;
+
+  @include media-lg {
+    font-size: 32px;
+  }
+}
+
+.priceWrapper {
+  display: flex;
+}
+
+.mealPrice {
+  width: auto;
+  height: auto;
+  color: var(--text-color-dollar);
+
+  @include media-lg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.ingredientHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 4rem;
+  border: 1px solid #cccccc;
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+
+  & > span {
+    width: 100%;
+    font-weight: 600;
+  }
+
+}
+
+.ingredient {
+  margin-top: 2rem;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 4rem;
+
+  & > span {
+    width: 100%;
+  }
+}
+
+.divider {
+  border: 1px solid rgba(204, 204, 204, 0.3);
+  border-radius: var(--border-radius);
+}
+
+.optionWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 0.25rem;
+
+  & > input[type='radio'] {
+    cursor: pointer;
+    width: 1.2rem;
+    height: 1.2rem;
+    appearance: none;
+    transition: all 0.2s linear;
+    border-radius: 50%;
+    border: 2px solid var(--main-color-secondary);
+
+    &:checked {
+      box-shadow: 0 0 0 1px var(--main-color-secondary);
+      background-color: var(--main-color-secondary);
+      border-width: 0.2rem;
+    }
+  }
+}
+
+.optionInfoWrapper {
+  margin-left: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+
+  & > span {
+    font-weight: 600;
+    font-size: 24px;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #cccccc;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  }
+}
