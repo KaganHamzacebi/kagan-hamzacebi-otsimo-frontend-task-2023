@@ -83,7 +83,7 @@ function MealModal() {
               <span>Medium</span>
               <span>High</span>
             </div>
-            <div className={styles.ingredientWrapper} >
+            <div className={styles.ingredientWrapper}>
               {
                 meal?.ingredients.map((ingredient, id) => {
                   return (

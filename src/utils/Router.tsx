@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // Views
 import Home from '../views/Home';
 import Error from '../views/Error';
-import Meal from '../views/Meal';
 import Menu from '../views/Menu';
 
 function Router() {
@@ -20,11 +19,6 @@ function Router() {
     {
       path: '/menu',
       element: <Menu/>,
-      errorElement: <Error/>
-    },
-    {
-      path: '/meal',
-      element: <Meal/>,
       errorElement: <Error/>
     }
   ]);
