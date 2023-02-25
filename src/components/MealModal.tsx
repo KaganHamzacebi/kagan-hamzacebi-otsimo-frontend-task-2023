@@ -1,24 +1,31 @@
 import styles from '../styles/components/MealModal.module.scss';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getModal, setModalActivity } from '../features/ModalControllerSlice';
-
-// Icons
-import { ImCross } from 'react-icons/im';
-import { FaDollarSign } from 'react-icons/fa';
 import useOutsideAlerter from '../utils/useOutsideAlerter';
 import type { ChangeEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
+// Icons
+import { ImCross } from 'react-icons/im';
+import { FaDollarSign } from 'react-icons/fa';
+
 function MealModal() {
   const isActive = useAppSelector(getModal).active;
   const meal = useAppSelector(getModal).props;
-  const dispatch = useAppDispatch();
-  const modalRef = useRef<HTMLDivElement>(null);
   const [isOutsideClicked, setIsOutsideClicked] = useState<boolean>(false);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [qualityScore, setQualityScore] = useState<number>(0);
   const [ingredientMap] = useState<Map<string, {price: number, quality: number}>>(new Map());
+
+  const dispatch = useAppDispatch();
+  const modalRef = useRef<HTMLDivElement>(null);
   useOutsideAlerter(modalRef, setIsOutsideClicked);
+
+  function clearRadios() {
+    const ele = document.querySelectorAll('input[type=radio]') as NodeListOf<HTMLInputElement>;
+    for(let i = 0; i < ele.length; i++)
+      ele[i].checked = false;
+  }
 
   useEffect(() => {
     if (isOutsideClicked) {
@@ -27,6 +34,7 @@ function MealModal() {
       ingredientMap.clear();
       setTotalPrice(0);
       setQualityScore(0);
+      clearRadios();
     }
   }, [isOutsideClicked]);
 
@@ -54,7 +62,10 @@ function MealModal() {
       <main className={`${styles.main} ${isActive ? styles.active : undefined}`}>
         <div ref={modalRef} className={`${styles.modal} ${isActive ? styles.active : undefined}`}>
           <header className={styles.modalHeader} >
-            <ImCross onClick={() => dispatch(setModalActivity(false))} className={styles.cross} />
+            <ImCross onClick={() => {
+              dispatch(setModalActivity(false));
+              clearRadios();
+            }} className={styles.cross} />
           </header>
           <div className={styles.modalContent}>
             <div className={styles.mealNameWrapper}>
@@ -95,6 +106,7 @@ function MealModal() {
                             <div key={optId} className={styles.optionWrapper}>
                               <input
                                 type={'radio'}
+                                id={'radioOption'}
                                 className={styles.optionRadio}
                                 onChange={calculatePriceAndQualityScore}
                                 name={ingredient.name}
