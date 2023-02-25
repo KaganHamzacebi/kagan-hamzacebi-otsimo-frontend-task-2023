@@ -1,0 +1,45 @@
+@import "src/styles/mixins";
+
+.main {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+}
+
+.errorLogo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 75%;
+  cursor: pointer;
+
+  @include media-sm {
+    width: 65%;
+  }
+
+  @include media-md {
+    width: 45%;
+  }
+
+  @include media-lg {
+    width: 25%;
+  }
+}
+
+.errorMessage {
+  position: absolute;
+  left: 50%;
+  bottom: 15%;
+  transform: translateX(-50%);
+  color: #BD383BFF;
+}
+
+.returnMessage {
+  @extend .errorMessage;
+  bottom: 12.5%;
+  font-weight: 600;
+}
