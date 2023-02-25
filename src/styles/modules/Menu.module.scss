@@ -67,11 +67,22 @@
   }
 }
 
-.searchInput, .orderInput {
+.searchInput, .orderInput, .suggestButton {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #cccccc;
   border-radius: var(--border-radius);
+  background-color: white;
+}
+
+.orderInput, .suggestButton {
+  cursor: pointer;
+}
+
+.suggestButton:hover {
+  transition: 0.2s background-color linear;
+  color: white;
+  background-color: var(--main-color-secondary);
 }
 
 .menuSection {

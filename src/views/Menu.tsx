@@ -45,6 +45,12 @@ function Menu() {
     }
   }
 
+  function suggestFood() {
+    const randomMeal = menu[Math.floor(Math.random() * menu.length)];
+    dispatch(setModalProps(randomMeal));
+    dispatch(setModalActivity(true));
+  }
+
   useEffect(() => {
     getMenus()
       .then((res) => {
@@ -126,6 +132,17 @@ function Menu() {
               <option value={2}>Price - Increasing</option>
               <option value={3}>Price - Decreasing</option>
             </select>
+          </div>
+          <div className={styles.divider}/>
+          <div className={styles.sort}>
+            <span>What should I eat?</span>
+            <button
+              type={'button'}
+              className={styles.suggestButton}
+              onClick={suggestFood}
+            >
+              Suggest
+            </button>
           </div>
         </section>
         <section className={styles.menuSection}>
