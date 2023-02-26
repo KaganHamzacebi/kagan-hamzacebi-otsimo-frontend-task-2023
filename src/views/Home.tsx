@@ -86,6 +86,7 @@ function Home() {
           </div>
         </section>
         <div className={styles.commentSection}>
+          <h1 className={styles.commentsText}>Comments</h1>
           <Swiper
             className={styles.commentContainer}
             modules={[Autoplay]}
@@ -94,8 +95,15 @@ function Home() {
               disableOnInteraction: false
             }}
             loop={true}
-            slidesPerView={6}
+            slidesPerView={1}
             spaceBetween={10}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1280: { slidesPerView: 4 },
+              1536: { slidesPerView: 5 }
+            }}
           >
             {
               comments.map((comment, id) => {
