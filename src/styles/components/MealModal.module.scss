@@ -91,21 +91,6 @@
   }
 }
 
-.priceWrapper {
-  display: flex;
-}
-
-.mealPrice {
-  width: auto;
-  height: auto;
-  color: var(--text-color-dollar);
-
-  @include media-lg {
-    width: 24px;
-    height: 24px;
-  }
-}
-
 .ingredientHeader {
   display: none;
   align-items: center;

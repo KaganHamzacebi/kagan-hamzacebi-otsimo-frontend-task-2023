@@ -1,28 +1,39 @@
-import type { Meal } from '../utils/types';
+import { getMeals } from './meal';
+import type { Meal, RawMeal } from '../utils/types';
+import { calculateMinMaxPrices } from '../utils/calculateFunctions';
 
-export const getMenus = async () => {
+/**
+ * Return Menus from external API and modifies with extra properties in order to ease the job of Frontend
+ *
+ * @return Array<RawMeal>
+ */
+export const getMenu = async () => {
   const menu = [] as Array<Meal>;
-  for (let i = 1; i < 10; i++) {
-    const res: Meal = await fetch(`https://apis.career.otsimo.xyz/api/restaurant/get/${i}`).then(r => r.json());
-    // Calculate Min and Max possible prices
-    let minPossible = 0;
-    let maxPossible = 0;
-    res.ingredients.forEach((ingredient) => {
-      minPossible += ingredient.options[ingredient.options.length - 1].price;
-      maxPossible += ingredient.options[0].price;
-    });
+  // Fetch all meals
+  const meals: Array<RawMeal> = await getMeals();
+  /**
+   * Iterate parallelly over fetched meals and fetch Menus
+   * Calculate essential data
+   */
+  await Promise.all(meals.map(async (meal, index) => {
+    const menuItem: RawMeal = await getMenuById(meal.id);
+    const mealItem = { ...menuItem, averagePrice: 0, priceScale: 1 };
+    const [averagePrice, priceScale] = calculateMinMaxPrices(menuItem);
+    mealItem.averagePrice = averagePrice;
+    mealItem.priceScale = priceScale;
+    menu[index] = mealItem as Meal;
+  }));
 
-    const avg = (minPossible + maxPossible) / 2;
+  // Sort the array alphabetically increasing order
+  menu.sort((a, b) => {
+    if (a.name < b.name) return -1;
+    if (a.name > b.name) return 1;
+    return 0;
+  });
 
-    res.averagePrice = avg;
-    res.priceScale = avg <= 15 ? 1 : avg <= 20 ? 2 : 3;
-
-    menu[i - 1] = res;
-    menu.sort((a, b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    });
-  }
   return menu;
+};
+
+const getMenuById = async (id: number) => {
+  return await fetch(`https://apis.career.otsimo.xyz/api/restaurant/get/${id}`).then((result) => result.json());
 };

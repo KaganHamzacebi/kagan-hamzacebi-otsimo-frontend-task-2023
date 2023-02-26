@@ -1,69 +1,52 @@
 import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 import styles from '../styles/modules/Menu.module.scss';
+import { sortBy } from '../utils/calculateFunctions';
 
 // Icons
-import { FaDollarSign } from 'react-icons/fa';
 import { GoPrimitiveDot } from 'react-icons/go';
 
 // Types
 import type { Meal } from '../utils/types';
-import { getMenus } from '../api/menu';
+import { getMenu } from '../api/menu';
 import MealModal from '../components/MealModal';
 import { useAppDispatch } from '../app/hooks';
 import { setModalActivity, setModalProps } from '../features/ModalControllerSlice';
+import PriceScale from '../components/PriceScale';
+import MenuShimmer from '../components/MenuShimmer';
 
 function Menu() {
+  // Original Menu to help reset functions
   const [menu, setMenu] = useState<Array<Meal>>([]);
+  // Filtered Menu to show sort, filters e.t.c
   const [filteredMenu, setFilteredMenu] = useState<Array<Meal>>([]);
   const dispatch = useAppDispatch();
 
-  function sortBy(id: string) {
-    switch (id) {
-    case '0':
-      setFilteredMenu([...filteredMenu].sort((a, b) => {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
-        return 0;
-      }));
-      break;
-    case '1':
-      setFilteredMenu([...filteredMenu].sort((a, b) => {
-        if (a.name > b.name) return -1;
-        if (a.name < b.name) return 1;
-        return 0;
-      }));
-      break;
-    case '2':
-      setFilteredMenu([...filteredMenu].sort((a, b) => a.averagePrice - b.averagePrice));
-      break;
-    case '3':
-      setFilteredMenu([...filteredMenu].sort((a, b) => b.averagePrice - a.averagePrice));
-      break;
-    default:
-      throw new Error('Unexpected value');
-    }
-  }
+  /**
+   * Fetch Menu
+   */
+  useEffect(() => {
+    getMenu()
+      .then((res) => {
+        setMenu(res);
+        setFilteredMenu(res);
+      })
+      .catch((err) => console.log(err));
+  });
 
+  /**
+   * Picks a random Meal from the Menu and opens the selected food's detail modal
+   */
   function suggestFood() {
     const randomMeal = menu[Math.floor(Math.random() * menu.length)];
     dispatch(setModalProps(randomMeal));
     dispatch(setModalActivity(true));
   }
 
-  useEffect(() => {
-    getMenus()
-      .then((res) => {
-        setMenu(res);
-        setFilteredMenu(res);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   return (
     <>
       <Header/>
-      <MealModal />
+      <MealModal/>
       <main className={styles.main}>
         <section className={styles.filterSection}>
           <div className={styles.search}>
@@ -83,7 +66,7 @@ function Menu() {
             <div className={styles.checkboxWrapper}>
               <input
                 className={styles.searchInput}
-                name='category'
+                name="category"
                 defaultChecked={true}
                 onChange={() => setFilteredMenu(menu)}
                 type="radio"
@@ -93,12 +76,14 @@ function Menu() {
             <div className={styles.checkboxWrapper}>
               <input
                 className={styles.searchInput}
-                name='category'
+                name="category"
                 onChange={(e) => {
                   if (e.target.checked)
                     setFilteredMenu(menu.filter((meal) => meal.ingredients.every((ingredient) => ingredient.groups?.includes('vegan') || ingredient.groups?.includes('vegetarian'))));
+
                   else
                     setFilteredMenu(menu);
+
                 }}
                 type="radio"
               />
@@ -107,12 +92,14 @@ function Menu() {
             <div className={styles.checkboxWrapper}>
               <input
                 className={styles.searchInput}
-                name='category'
+                name="category"
                 onChange={(e) => {
                   if (e.target.checked)
                     setFilteredMenu(menu.filter((meal) => meal.ingredients.every((ingredient) => ingredient.groups?.includes('vegan'))));
+
                   else
                     setFilteredMenu(menu);
+
                 }}
                 type="radio"/>
               <span>Vegan</span>
@@ -122,9 +109,9 @@ function Menu() {
           <div className={styles.sort}>
             <span>Sort By</span>
             <select
-              id='orderBySelect'
+              id="orderBySelect"
               className={styles.orderInput}
-              onChange={(e) => sortBy(e.target.value)}
+              onChange={(e) => sortBy(e.target.value, filteredMenu, setFilteredMenu)}
               placeholder="Order by"
             >
               <option value={0}>Name - Increasing</option>
@@ -149,26 +136,7 @@ function Menu() {
           <div className={styles.menuWrapper}>
             {
               menu.length === 0 ?
-                <div className={styles.shimmerWrapper}>
-                  <div className={styles.shimmer}>
-                    <div/>
-                  </div>
-                  <div className={styles.shimmer}>
-                    <div/>
-                  </div>
-                  <div className={styles.shimmer}>
-                    <div/>
-                  </div>
-                  <div className={styles.shimmer}>
-                    <div/>
-                  </div>
-                  <div className={styles.shimmer}>
-                    <div/>
-                  </div>
-                  <div className={styles.shimmer}>
-                    <div/>
-                  </div>
-                </div>
+                <MenuShimmer />
                 :
                 filteredMenu.map((meal: Meal) => {
                   return (
@@ -195,22 +163,7 @@ function Menu() {
                         }
                       </div>
                       <div className={styles.ingredientPrice}>
-                        {
-                          meal.priceScale === 1 ?
-                            <FaDollarSign className={styles.dollarSign}/>
-                            :
-                            meal.priceScale === 2 ?
-                              <div className={styles.priceScale}>
-                                <FaDollarSign className={styles.dollarSign}/>
-                                <FaDollarSign className={styles.dollarSign}/>
-                              </div>
-                              :
-                              <div className={styles.priceScale}>
-                                <FaDollarSign className={styles.dollarSign}/>
-                                <FaDollarSign className={styles.dollarSign}/>
-                                <FaDollarSign className={styles.dollarSign}/>
-                              </div>
-                        }
+                        <PriceScale priceScale={meal.priceScale} />
                       </div>
                     </div>
                   );

@@ -1,5 +1,5 @@
 /**
- * Router Config File
+ * Router Config File to handle URL paths
  */
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -10,6 +10,13 @@ import Menu from '../views/Menu';
 
 function Router() {
 
+  /**
+   * JSON based Path Config
+   *
+   * @param path: URL path to catch
+   * @param element: React Component to render
+   * @param errorElement: Error Element to show on failure
+   */
   const router = createBrowserRouter([
     {
       path: '/',

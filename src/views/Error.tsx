@@ -8,7 +8,7 @@ function Error() {
   return (
     <>
       <main className={styles.main}>
-        <img onClick={() => navigate('/')} src={ErrorLogo} className={styles.errorLogo} alt='error_logo' />
+        <img onClick={() => navigate('/')} src={ErrorLogo} className={styles.errorLogo} alt="error_logo"/>
         <h1 className={styles.errorMessage}>Sorry the page you looking for does not exist!</h1>
         <span className={styles.returnMessage}>Turn back to home page by clicking the image</span>
       </main>

@@ -1,4 +1,4 @@
-export type Meal = {
+type Meal = {
   id: number;
   ingredients: Array<Ingredient>;
   name: string;
@@ -7,7 +7,13 @@ export type Meal = {
   priceScale: 1 | 2 | 3;
 }
 
-export type Ingredient = {
+type RawMeal = {
+  id: number;
+  ingredients: Array<Ingredient>;
+  name: string;
+}
+
+type Ingredient = {
   groups: Array<string> | undefined;
   name: string;
   options: Array<Option>;
@@ -15,9 +21,18 @@ export type Ingredient = {
   quantity_type: 'gram' | 'millilitre';
 }
 
-export type Option = {
+type Option = {
   name: string;
   per_amount: 'kilogram' | 'litre';
   price: number;
   quality: 'high' | 'medium' | 'low';
 }
+
+type Comment = {
+  commentor: string;
+  comment: string;
+  star: number;
+  date: string;
+}
+
+export type { Meal, RawMeal, Comment, Ingredient, Option };

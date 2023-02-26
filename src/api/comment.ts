@@ -1,6 +1,8 @@
-import type { Comment } from '../views/Home';
+import type { Comment } from '../utils/types';
 
-/** Mocked api calls to bring comment data */
+/**
+ * Mock api calls to bring comment data
+ */
 
 export const getComments = async (): Promise<Array<Comment>> => {
   return [

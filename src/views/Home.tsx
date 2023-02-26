@@ -2,6 +2,8 @@ import styles from '../styles/modules/Home.module.scss';
 import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 import { getComments } from '../api/comment';
+import ReactStars from 'react-stars';
+import type { Comment } from '../utils/types';
 
 // Logos
 import Logo from '../assets/Logo.png';
@@ -10,27 +12,23 @@ import { FaMoneyBillWave } from 'react-icons/fa';
 import { BsFillCalculatorFill } from 'react-icons/bs';
 import { AiFillStar } from 'react-icons/ai';
 
+// Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper';
 import 'swiper/css';
 
-import ReactStars from 'react-stars';
-
-export type Comment = {
-  commentor: string;
-  comment: string;
-  star: number;
-  date: string;
-}
-
 function Home() {
   const [comments, setComments] = useState<Array<Comment>>([]);
 
+  /**
+   * Fetch comments from service on render
+   */
   useEffect(() => {
     const fetchComments = async () => {
       const res = await getComments();
       setComments(res);
     };
+
     fetchComments().catch((err) => console.log(err));
   }, []);
 
@@ -108,7 +106,7 @@ function Home() {
             }}
           >
             {
-              comments.map((comment, id) => {
+              comments.map((comment: Comment, id) => {
                 return (
                   <SwiperSlide className={styles.commentCard} key={id}>
                     <div className={styles.commentorWrapper}>
@@ -117,7 +115,7 @@ function Home() {
                     </div>
                     <h3 className={styles.comment}>{comment.comment}</h3><br/>
                     <div className={styles.starWrapper}>
-                      <ReactStars counts={5} value={comment.star} edit={false} size={24} />
+                      <ReactStars counts={5} value={comment.star} edit={false} size={24}/>
                     </div>
                   </SwiperSlide>
                 );

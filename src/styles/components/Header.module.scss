@@ -37,12 +37,12 @@
   font-size: 1.5rem;
   padding: 0.5rem;
   border-radius: var(--border-radius);
-  border: 2px solid rgba(0, 173, 254, 0.5);
-  color: rgb(0, 173, 254);
+  border: 2px solid rgba(85, 26, 139, 0.4);
+  color: var(--main-color-secondary);
   transition: color 0.2s linear;
 
   &:hover {
-    background-color: #00ADFE;
+    background-color: var(--main-color-secondary);
     color: white;
   }
 }

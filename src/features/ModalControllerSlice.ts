@@ -1,3 +1,7 @@
+/**
+ * A Redux Slice to handle Modal Activity
+ */
+
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../app/store';
 import type { Meal } from '../utils/types';
