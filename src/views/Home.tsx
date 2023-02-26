@@ -16,9 +16,12 @@ import { AiFillStar } from 'react-icons/ai';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper';
 import 'swiper/css';
+import { setNotificationActivity, setNotificationText } from '../features/NotificationControllerSlice';
+import { useAppDispatch } from '../app/hooks';
 
 function Home() {
   const [comments, setComments] = useState<Array<Comment>>([]);
+  const dispatch = useAppDispatch();
 
   /**
    * Fetch comments from service on render
@@ -29,8 +32,12 @@ function Home() {
       setComments(res);
     };
 
-    fetchComments().catch((err) => console.log(err));
-  }, []);
+    fetchComments().catch(() => {
+      dispatch(setNotificationActivity(true));
+      dispatch(setNotificationText('An Error just occurred while fetching the Comment Data'));
+      setTimeout(() => dispatch(setNotificationActivity(false)), 4000);
+    });
+  }, [dispatch]);
 
   return (
     <>

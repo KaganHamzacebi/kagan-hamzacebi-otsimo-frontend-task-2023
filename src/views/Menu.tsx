@@ -14,6 +14,7 @@ import { useAppDispatch } from '../app/hooks';
 import { setModalActivity, setModalProps } from '../features/ModalControllerSlice';
 import PriceScale from '../components/PriceScale';
 import MenuShimmer from '../components/MenuShimmer';
+import { setNotificationActivity, setNotificationText } from '../features/NotificationControllerSlice';
 
 function Menu() {
   // Original Menu to help reset functions
@@ -31,7 +32,11 @@ function Menu() {
         setMenu(res);
         setFilteredMenu(res);
       })
-      .catch((err) => console.log(err));
+      .catch(() => {
+        dispatch(setNotificationActivity(true));
+        dispatch(setNotificationText('An Error just occurred while fetching the Meal Data'));
+        setTimeout(() => dispatch(setNotificationActivity(false)), 4000);
+      });
   });
 
   /**

@@ -1,9 +1,13 @@
 import React from 'react';
 import Router from './utils/Router';
+import Notification from './components/Notification';
 
 function App() {
   return (
-    <Router/>
+    <div>
+      <Notification />
+      <Router/>
+    </div>
   );
 }
 

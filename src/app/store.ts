@@ -6,10 +6,12 @@ import { configureStore } from '@reduxjs/toolkit';
 
 // Reducers
 import modalControllerReducer from '../features/ModalControllerSlice';
+import notificationControllerSlice from '../features/NotificationControllerSlice';
 
 export const store = configureStore({
   reducer: {
-    modalController: modalControllerReducer
+    modalController: modalControllerReducer,
+    notificationController: notificationControllerSlice
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false

@@ -87,7 +87,7 @@ function MealModal() {
 
   return (
     <>
-      <main className={`${styles.main} ${isActive ? styles.active : undefined}`}>
+      <main className={`${styles.main} ${isActive && styles.active}`}>
         <div ref={modalRef} className={`${styles.modal} ${isActive ? styles.active : undefined}`}>
           <header className={styles.modalHeader}>
             <ImCross onClick={() => {

@@ -35,4 +35,10 @@ type Comment = {
   date: string;
 }
 
-export type { Meal, RawMeal, Comment, Ingredient, Option };
+type Notification = {
+  active: boolean;
+  text: string;
+  type: 'Error'
+}
+
+export type { Meal, RawMeal, Comment, Ingredient, Option, Notification };
