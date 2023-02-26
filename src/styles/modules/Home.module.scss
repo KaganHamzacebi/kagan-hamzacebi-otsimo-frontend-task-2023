@@ -127,6 +127,7 @@
 
 .commentCard {
   display: flex;
+  flex-direction: column;
   border-radius: var(--border-radius);
   background-color: var(--main-color-secondary);
   padding: 2rem;
@@ -146,4 +147,31 @@
   @include media-lg {
     margin-top: 8rem;
   }
+}
+
+.commentor {
+  font-size: 18px;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.comment {
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  color: black;
+}
+
+.date {
+  margin-top: -24px;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.starWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }

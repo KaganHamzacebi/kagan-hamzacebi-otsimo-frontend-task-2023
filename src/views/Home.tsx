@@ -14,6 +14,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper';
 import 'swiper/css';
 
+import ReactStars from 'react-stars';
+
 export type Comment = {
   commentor: string;
   comment: string;
@@ -91,7 +93,7 @@ function Home() {
             className={styles.commentContainer}
             modules={[Autoplay]}
             autoplay={{
-              delay: 2000,
+              delay: 4000,
               disableOnInteraction: false
             }}
             loop={true}
@@ -109,10 +111,14 @@ function Home() {
               comments.map((comment, id) => {
                 return (
                   <SwiperSlide className={styles.commentCard} key={id}>
-                    <span className={styles.commentor}>{comment.commentor}</span>
-                    <span className={styles.comment}>{comment.comment}</span>
-                    <span className={styles.star}>{comment.star}</span>
-                    <span className={styles.date}>{comment.date}</span>
+                    <div className={styles.commentorWrapper}>
+                      <h3 className={styles.commentor}>{comment.commentor}</h3><br/>
+                      <h3 className={styles.date}>{comment.date}</h3><br/>
+                    </div>
+                    <h3 className={styles.comment}>{comment.comment}</h3><br/>
+                    <div className={styles.starWrapper}>
+                      <ReactStars counts={5} value={comment.star} edit={false} size={24} />
+                    </div>
                   </SwiperSlide>
                 );
               })
