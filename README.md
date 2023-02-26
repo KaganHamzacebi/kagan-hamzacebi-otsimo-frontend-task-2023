@@ -7,7 +7,7 @@
 - Run npm install
 - Run npm start (Project will run at https://localhost:3000)
 
-# Demo [![Netlify Status](https://api.netlify.com/api/v1/badges/e2030b25-ee38-4adf-99ce-ad51dd8fae81/deploy-status)](https://app.netlify.com/sites/transparent-restaurant/deploys)
+## Demo [![Netlify Status](https://api.netlify.com/api/v1/badges/e2030b25-ee38-4adf-99ce-ad51dd8fae81/deploy-status)](https://app.netlify.com/sites/transparent-restaurant/deploys)
 
 The demo is available at: https://transparent-retaurant.netlify.app
 
