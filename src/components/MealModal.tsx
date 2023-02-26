@@ -33,7 +33,7 @@ function MealModal() {
    * Function that removes all radio button selections
    */
   function clearRadios() {
-    const ele = document.querySelectorAll('input[type=radio]') as NodeListOf<HTMLInputElement>;
+    const ele = document.querySelectorAll('input[id="radioOption"]') as NodeListOf<HTMLInputElement>;
     for (let i = 0; i < ele.length; i++)
       ele[i].checked = false;
   }
