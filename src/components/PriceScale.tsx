@@ -1,6 +1,10 @@
 import { FaDollarSign } from 'react-icons/fa';
 import styles from '../styles/components/PriceScale.module.scss';
 
+/**
+ *  Small Component to handle Price Scale symbolization
+ *  build to reduce duplicate code
+ */
 const PriceScale = (props: {priceScale: 1 | 2 | 3}) => {
   return (
     props.priceScale === 1 ?

@@ -16,6 +16,9 @@ import PriceScale from '../components/PriceScale';
 import MenuShimmer from '../components/MenuShimmer';
 import { setNotificationActivity, setNotificationText } from '../features/NotificationControllerSlice';
 
+/**
+ * Menu Page
+ */
 function Menu() {
   // Original Menu to help reset functions
   const [menu, setMenu] = useState<Array<Meal>>([]);

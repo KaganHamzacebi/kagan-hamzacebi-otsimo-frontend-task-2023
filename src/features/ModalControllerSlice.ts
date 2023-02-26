@@ -15,9 +15,11 @@ export const modalControllerSlice = createSlice({
   name: 'modalSelector',
   initialState,
   reducers: {
+    // Sets Modal Activity
     setModalActivity: (state, action) => {
       state.active = action.payload;
     },
+    // Sets Modal Props
     setModalProps: (state, action) => {
       state.props = action.payload;
     }

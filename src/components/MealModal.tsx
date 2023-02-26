@@ -11,6 +11,9 @@ import type { ChangeEvent } from 'react';
 import { ImCross } from 'react-icons/im';
 import PriceScale from './PriceScale';
 
+/**
+ * Meal Details Modal
+ */
 function MealModal() {
   const meal = useAppSelector(getModal).props;
   const isActive = useAppSelector(getModal).active;

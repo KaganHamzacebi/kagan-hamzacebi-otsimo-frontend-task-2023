@@ -2,6 +2,9 @@ import styles from '../styles/modules/Error.module.scss';
 import ErrorLogo from '../assets/error.png';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Error Page to catch missing paths
+ */
 function Error() {
   const navigate = useNavigate();
 

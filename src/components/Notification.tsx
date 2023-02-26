@@ -5,6 +5,10 @@ import { getNotification } from '../features/NotificationControllerSlice';
 // Icons
 import { BiErrorAlt } from 'react-icons/bi';
 
+/**
+ * Notification Component
+ */
+
 function Notification() {
   const { active, text, type } = useAppSelector(getNotification);
 

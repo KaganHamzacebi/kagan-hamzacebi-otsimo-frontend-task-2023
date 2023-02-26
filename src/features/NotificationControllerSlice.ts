@@ -16,12 +16,15 @@ export const notificationControllerSlice = createSlice({
   name: 'notificationSelector',
   initialState,
   reducers: {
+    // Sets Notification Activity
     setNotificationActivity: (state, action) => {
       state.active = action.payload;
     },
+    // Sets Notification Text
     setNotificationText: (state, action) => {
       state.text = action.payload;
     },
+    // Sets Notification Type
     setNotificationType: (state, action) => {
       state.text = action.payload;
     }

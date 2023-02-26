@@ -19,6 +19,9 @@ import 'swiper/css';
 import { setNotificationActivity, setNotificationText } from '../features/NotificationControllerSlice';
 import { useAppDispatch } from '../app/hooks';
 
+/**
+ * Home Page
+ */
 function Home() {
   const [comments, setComments] = useState<Array<Comment>>([]);
   const dispatch = useAppDispatch();
