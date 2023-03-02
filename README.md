@@ -9,7 +9,7 @@
 
 ## Demo [![Netlify Status](https://api.netlify.com/api/v1/badges/e2030b25-ee38-4adf-99ce-ad51dd8fae81/deploy-status)](https://app.netlify.com/sites/transparent-restaurant/deploys)
 
-The demo is available at: https://transparent-retaurant.netlify.app
+The demo is available at: https://transparent-restaurant.netlify.app
 
 ## Features Implemented
 
