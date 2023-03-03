@@ -40,7 +40,7 @@ function Menu() {
         dispatch(setNotificationText('An Error just occurred while fetching the Meal Data'));
         setTimeout(() => dispatch(setNotificationActivity(false)), 4000);
       });
-  });
+  }, [dispatch]);
 
   /**
    * Picks a random Meal from the Menu and opens the selected food's detail modal
@@ -88,7 +88,6 @@ function Menu() {
                 onChange={(e) => {
                   if (e.target.checked)
                     setFilteredMenu(menu.filter((meal) => meal.ingredients.every((ingredient) => ingredient.groups?.includes('vegan') || ingredient.groups?.includes('vegetarian'))));
-
                   else
                     setFilteredMenu(menu);
 
