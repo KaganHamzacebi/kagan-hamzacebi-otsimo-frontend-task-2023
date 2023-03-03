@@ -22,6 +22,8 @@
 }
 
 .modal {
+  max-width: 90%;
+  max-height: 90%;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -30,8 +32,6 @@
   top: 0;
   bottom: 0;
   margin: auto auto;
-  width: 90%;
-  height: 90%;
   background-color: white;
   border-radius: var(--border-radius);
   padding: 0.5rem;
